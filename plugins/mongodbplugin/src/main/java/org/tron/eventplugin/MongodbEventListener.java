@@ -38,6 +38,11 @@ public class MongodbEventListener implements IPluginEventListener {
     }
 
     @Override
+    public int getTaskSize() {
+      return MongodbSenderImpl.getInstance().getTaskSize();
+    }
+
+    @Override
     public void handleBlockEvent(Object data) {
 
         if (Objects.isNull(data)){

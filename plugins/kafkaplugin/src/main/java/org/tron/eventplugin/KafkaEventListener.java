@@ -38,6 +38,11 @@ public class KafkaEventListener implements IPluginEventListener {
     }
 
     @Override
+    public int getTaskSize() {
+      return MessageSenderImpl.getInstance().getTriggerQueue().size();
+    }
+
+    @Override
     public void handleBlockEvent(Object data) {
 
         if (Objects.isNull(data)){

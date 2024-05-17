@@ -9,9 +9,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import org.pf4j.util.StringUtils;
 import org.slf4j.Logger;
@@ -24,7 +24,7 @@ public class MongodbSenderImpl {
 
   private static MongodbSenderImpl instance = null;
   private static final Logger log = LoggerFactory.getLogger(MongodbSenderImpl.class);
-  private ExecutorService service = Executors.newFixedThreadPool(8);
+  private ThreadPoolExecutor service = (ThreadPoolExecutor) Executors.newFixedThreadPool(8);
 
   private boolean loaded = false;
   private BlockingQueue<Object> triggerQueue = new LinkedBlockingQueue<>();
@@ -262,6 +262,10 @@ public class MongodbSenderImpl {
 
   public BlockingQueue<Object> getTriggerQueue() {
     return triggerQueue;
+  }
+
+  public int getTaskSize() {
+    return service.getQueue().size();
   }
 
   public void upsertEntityLong(MongoTemplate template, Object data, String indexKey) {

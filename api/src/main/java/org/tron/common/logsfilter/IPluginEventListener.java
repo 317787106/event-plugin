@@ -12,6 +12,8 @@ public interface IPluginEventListener extends ExtensionPoint {
     // start should be called after setServerAddress, setTopic, setDBConfig
     void start();
 
+    int getTaskSize();
+
     void handleBlockEvent(Object data);
 
     void handleTransactionTrigger(Object data);
