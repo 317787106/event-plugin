@@ -421,7 +421,7 @@ public class MongodbSenderImpl implements AutoCloseable {
         while (isRunTriggerProcessThread) {
           try {
             String triggerData = (String) triggerQueue.poll(1, TimeUnit.SECONDS);
-
+            log.info("data: {}", triggerData);
             if (Objects.isNull(triggerData)) {
               continue;
             }
